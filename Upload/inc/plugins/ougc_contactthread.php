@@ -118,26 +118,31 @@ class OUGC_ContactThread
 
         $this->load_pluginlibrary();
 
-        $PL->settings('ougc_contactthread', $lang->setting_group_ougc_contactthread, $lang->setting_group_ougc_contactthread_desc, [
-            'forumid' => [
-                'title' => $lang->setting_ougc_contactthread_forumid,
-                'description' => $lang->setting_ougc_contactthread_forumid_desc,
-                'optionscode' => 'forumselectsingle',
-                'value' => ''
-            ],
-            'disablemaling' => [
-                'title' => $lang->setting_ougc_contactthread_disablemaling,
-                'description' => $lang->setting_ougc_contactthread_disablemaling_desc,
-                'optionscode' => 'yesno',
-                'value' => 1
-            ],
-            'prefix' => [
-                'title' => $lang->setting_ougc_contactthread_prefix,
-                'description' => $lang->setting_ougc_contactthread_prefix_desc,
-                'optionscode' => 'numeric',
-                'value' => 0
-            ],
-        ]);
+        $PL->settings(
+            'ougc_contactthread',
+            $lang->setting_group_ougc_contactthread,
+            $lang->setting_group_ougc_contactthread_desc,
+            [
+                'forumid' => [
+                    'title' => $lang->setting_ougc_contactthread_forumid,
+                    'description' => $lang->setting_ougc_contactthread_forumid_desc,
+                    'optionscode' => 'forumselectsingle',
+                    'value' => ''
+                ],
+                'disablemaling' => [
+                    'title' => $lang->setting_ougc_contactthread_disablemaling,
+                    'description' => $lang->setting_ougc_contactthread_disablemaling_desc,
+                    'optionscode' => 'yesno',
+                    'value' => 1
+                ],
+                'prefix' => [
+                    'title' => $lang->setting_ougc_contactthread_prefix,
+                    'description' => $lang->setting_ougc_contactthread_prefix_desc,
+                    'optionscode' => 'numeric',
+                    'value' => 0
+                ],
+            ]
+        );
 
         // Insert/update version into cache
         $pluginList = (array)$cache->read('ougc_plugins');
@@ -243,6 +248,10 @@ class OUGC_ContactThread
             return;
         }
 
+        global $forum;
+
+        $forum = $forum_cache[$fid];
+
         require_once \MYBB_ROOT . 'inc/datahandlers/post.php';
 
         $postHandler = new \PostDataHandler('insert');
@@ -275,7 +284,7 @@ class OUGC_ContactThread
 
             require_once \MYBB_ROOT . 'inc/functions_indicators.php';
 
-            //\mark_thread_read($thread_info['tid'], $fid);
+            mark_thread_read($thread_info['tid'], $fid);
 
             // we disable mailing only if the thread was created successfully
             if ($mybb->settings['ougc_contactthread_disablemaling']) {
