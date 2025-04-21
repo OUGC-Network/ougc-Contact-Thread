@@ -100,8 +100,8 @@ class OUGC_ContactThread
             'website' => 'https://community.mybb.com/mods.php?action=view&pid=1361',
             'author' => 'Omar G.',
             'authorsite' => 'https://ougc.network',
-            'version' => '1.8.33',
-            'versioncode' => 1833,
+            'version' => '1.8.34',
+            'versioncode' => 1834,
             'compatibility' => '183*',
             'codename' => 'ougc_contactthread',
             'pl' => [
